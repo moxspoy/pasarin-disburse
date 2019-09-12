@@ -9,6 +9,8 @@
 
 include_once 'api/config/database.php';
 
+echo "Creating database ...";
+
 $db = new Database();
 $conn = $db->getConnection();
 

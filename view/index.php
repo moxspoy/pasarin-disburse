@@ -23,6 +23,7 @@ include 'header.php';
         <p class="animated fadeIn text-muted">Ini adalah halaman untuk pencairan uang anda</p>
 
         <a href="pencairan.php"> <button type="button" class="btn btn-primary">Klik disini untuk pencairan</button> </a>
+        <a href="lihat_status.php"> <button type="button" class="btn btn-primary">Klik disini untuk lihat status pencairan </button> </a>
 
 
     </div>
