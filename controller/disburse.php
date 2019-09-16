@@ -67,7 +67,7 @@ function saveToDatabase ($json_data) {
     mysqli_select_db($conn, 'pasarin_disburse');
 
     $checkQuery = "SELECT 1 FROM 'disburse'  LIMIT 1";
-    if($conn->query($checkQuery)) {
+    if(!$conn->query($checkQuery)) {
         $createTableQuery = 'CREATE TABLE disburse (
                     id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
                     amount INT(30) NOT NULL,
@@ -81,36 +81,32 @@ function saveToDatabase ($json_data) {
                     time_served TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                     fee INT(100) NOT NULL
                     )';
-        if(!$conn->query($createTableQuery)) {
-            echo "Error when creating table because: " . mysqli_error($conn);
-        }
-    } else {
-        $data = json_decode($json_data);
-        $amount = $data->amount;
-        $status = $data->status;
-        $timestamp = $data->timestamp;
-        $bank_code = $data->bank_code;
-        $account_number = $data->account_number;
-        $beneficiary_name = $data->beneficiary_name;
-        $remark = $data->remark;
-        $receipt = $data->receipt;
-        $time_served = $data->time_served;
-        $fee = $data->fee;
+    }
+
+    $data = json_decode($json_data);
+    $amount = $data->amount;
+    $status = $data->status;
+    $timestamp = $data->timestamp;
+    $bank_code = $data->bank_code;
+    $account_number = $data->account_number;
+    $beneficiary_name = $data->beneficiary_name;
+    $remark = $data->remark;
+    $receipt = $data->receipt;
+    $time_served = $data->time_served;
+    $fee = $data->fee;
 
 
-        $insertQuery = "INSERT INTO disburse (amount, status, timestamp, bank_code, account_number, 
+    $insertQuery = "INSERT INTO disburse (amount, status, timestamp, bank_code, account_number, 
                         beneficiary_name, remark, receipt, time_served, fee) 
-                        VALUES ('1000', '$status', '$timestamp', '$bank_code', '$account_number',
+                        VALUES ('$amount', '$status', '$timestamp', '$bank_code', '$account_number',
                                 '$beneficiary_name', '$remark', '$receipt', '$time_served', '$fee')";
 
-        echo $insertQuery;
-
-//        if(!$conn->query($insertQuery)) {
-//            echo "Error when inserting data to table";
-//        } else {
-//            echo "Success creating and inserting to database";
-//        }
+    if(!$conn->query($insertQuery)) {
+        echo "Error when inserting data to table because: " . mysqli_error($conn);
+    } else {
+        echo "Success creating and inserting to database";
     }
+
 
 }
 ?>
