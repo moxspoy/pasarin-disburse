@@ -6,16 +6,16 @@
  * Time         : 13:23
  * Github       : https://github.com/moxspoy
  */
+
 require_once '../api/config/database.php';
-define('AUTH_KEY', 'HyzioY7LP6ZoO7nTYKbG8O4ISkyWnX1JvAEVAhtWKZumooCzqp41');
-define('BASE_URL', 'https://nextar.flip.id');
+require_once '../api/config/constant.php';
 
 /**Send Post Request to POST /disburse HTTP/1.1
  * Content-Type: application/x-www-form-urlencoded
  * Authorization: basic [your encoded slightly-big flip secret key]
 */
 
-$url = "http://localhost/nextar.flip.id/index.php/disburse/disburses";
+$url = BASE_URL . "/disburses";
 
 //Check whether methos is post
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -23,7 +23,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     $data['account_number'] = $_POST['account_number'];
     $data['amount'] = $_POST['amount'];
     $data['remark'] = $_POST['remark'];
-    $result = sendingRequest("POST",$url,$data);
+    $result = createDisbursement("POST",$url,$data);
     saveToDatabase($result);
 } else {
     $message['message'] = "bad request, please use post method";
@@ -32,7 +32,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 
 
-function sendingRequest ($method, $url, $data) {
+function createDisbursement ($method, $url, $data) {
     $curl = curl_init();
 
     curl_setopt($curl, CURLOPT_URL, $url);
@@ -70,6 +70,7 @@ function saveToDatabase ($json_data) {
     if(!$conn->query($checkQuery)) {
         $createTableQuery = 'CREATE TABLE disburse (
                     id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+                    id_from_api INT(12),
                     amount INT(30) NOT NULL,
                     status VARCHAR(30) NOT NULL,
                     timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -81,9 +82,11 @@ function saveToDatabase ($json_data) {
                     time_served TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                     fee INT(100) NOT NULL
                     )';
+        mysqli_query($conn, $createTableQuery);
     }
 
     $data = json_decode($json_data);
+    $id_from_api = $data->id;
     $amount = $data->amount;
     $status = $data->status;
     $timestamp = $data->timestamp;
@@ -96,15 +99,17 @@ function saveToDatabase ($json_data) {
     $fee = $data->fee;
 
 
-    $insertQuery = "INSERT INTO disburse (amount, status, timestamp, bank_code, account_number, 
+    $insertQuery = "INSERT INTO disburse (id_from_api, amount, status, timestamp, bank_code, account_number, 
                         beneficiary_name, remark, receipt, time_served, fee) 
-                        VALUES ('$amount', '$status', '$timestamp', '$bank_code', '$account_number',
+                        VALUES ('$id_from_api','$amount', '$status', '$timestamp', '$bank_code', '$account_number',
                                 '$beneficiary_name', '$remark', '$receipt', '$time_served', '$fee')";
 
     if(!$conn->query($insertQuery)) {
         echo "Error when inserting data to table because: " . mysqli_error($conn);
     } else {
-        echo "Success creating and inserting to database";
+        session_start();
+        $_SESSION['id'] = $data->id;
+        header('Location: ' . CLIENT_URL);
     }
 
 
