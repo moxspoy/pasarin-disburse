@@ -17,5 +17,6 @@ define('LOCAL_HOST', 'localhost');
 define('DB_NAME', 'pasarin_disburse');
 define('DB_USER', 'root');
 define('DB_PASSWORD', '');
+define('DB_TABLE_NAME', 'disburse');
 
 ?>
