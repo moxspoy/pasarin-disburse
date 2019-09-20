@@ -16,7 +16,7 @@ $conn = $db->getConnection();
 
 $createDatabaseQuery = 'CREATE DATABASE pasarin_disburse';
 if($conn->query($createDatabaseQuery)) {
-    echo "Database created successfully";
+    echo "Database created successfully. You now can open index.php on root folder";
 } else {
     echo "Error creating database: " . $conn->error;
 }

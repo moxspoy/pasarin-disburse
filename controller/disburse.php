@@ -7,8 +7,8 @@
  * Github       : https://github.com/moxspoy
  */
 
-require_once '../api/config/database.php';
-require_once '../api/config/constant.php';
+require_once '../config/database.php';
+require_once '../config/constant.php';
 
 /**Send Post Request to POST /disburse HTTP/1.1
  * Content-Type: application/x-www-form-urlencoded

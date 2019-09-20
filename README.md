@@ -7,6 +7,5 @@ Simple service API to disburse the money from seller using Slightly-big Flip API
 
 # Before start
 1. Execute 'php migrate.php' to create database
-2. Visit [localhost]/pasarin-disburse OR visit index.php in root location
-
-
+2. Open 'config/constant.php', edit CLIENT_URL parameter to your host if you dont use localhost
+3. Visit [localhost]/pasarin-disburse OR visit index.php in root location

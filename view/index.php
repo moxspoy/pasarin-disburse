@@ -8,6 +8,16 @@
  */
 
 include 'header.php';
+require_once '../config/database.php';
+
+$db = new Database();
+$conn = $db->getConnection();
+
+
+if(!$db->isDatabaseCreated()) {
+    $message = $db->createDatabase();
+    echo "<script>alert('" . $message . "')</script>";
+}
 
 session_start();
 if(isset($_SESSION['id'])) {
@@ -22,30 +32,20 @@ if(isset($_SESSION['id'])) {
 <!-- Start your project here-->
 <div style="height: 100vh">
     <div class="flex-center flex-column">
-        <h1 class="animated fadeIn mb-2">Selamat Datang di Pasarin</h1>
+        <h1 class="animated fadeIn mb-2">Selamat Datang di Pasarin.id</h1>
 
         <h5 class="animated fadeIn mb-1">Online Marketplace Terbesar di Republik Indonesia</h5>
 
         <p class="animated fadeIn text-muted">Ini adalah halaman untuk pencairan uang anda</p>
 
         <a href="pencairan.php"> <button type="button" class="btn btn-primary">Klik disini untuk pencairan</button> </a>
-        <a href="lihat_status.php"> <button type="button" class="btn btn-primary">Klik disini untuk lihat status pencairan </button> </a>
+        <a href="lihat_status.php"> <button type="button" class="btn btn-primary">Klik disini untuk lihat status pencairan</button> </a>
 
 
     </div>
 
 </div>
 <!-- /Start your project here-->
-
-<!-- SCRIPTS -->
-<!-- JQuery -->
-<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
-<!-- Bootstrap tooltips -->
-<script type="text/javascript" src="js/popper.min.js"></script>
-<!-- Bootstrap core JavaScript -->
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
-<!-- MDB core JavaScript -->
-<script type="text/javascript" src="js/mdb.min.js"></script>
 </body>
 
 </html>
