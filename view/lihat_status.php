@@ -8,12 +8,16 @@
  */
 
 include 'header.php';
+require_once '../model/database.php';
+
+$db = new Database();
+$db->settingUpDatabase();
 
 session_start();
 if(isset($_SESSION['id'])) {
+    //echo $_SESSION['id'];
     echo "<script>alert('Sukses membuat disbursement. Anda bisa mengecek status dengan id = " . $_SESSION['id'] ."')</script>";
 }
-session_destroy();
 ?>
 <body>
 
@@ -75,5 +79,3 @@ session_destroy();
 </body>
 
 </html>
-
-d

@@ -7,7 +7,7 @@
  * Github       : https://github.com/moxspoy
  */
 
-require_once 'constant.php';
+require_once '../config/constant.php';
 
 class Database {
     private $conn = null;
@@ -20,6 +20,14 @@ class Database {
             return $this->conn;
         } else {
             return "Connection failed: " . mysqli_connect_error();
+        }
+    }
+
+    //Function to check database in every page
+    public function settingUpDatabase() {
+        if(!$this->isDatabaseCreated()) {
+            $message = $this->createDatabase();
+            echo "<script>alert('" . $message . "')</script>";
         }
     }
 
@@ -96,7 +104,7 @@ class Database {
         } else {
             session_start();
             $_SESSION['id'] = $data->id;
-            header('Location: ' . CLIENT_URL . '/view/lihat_status');
+            header('Location: ' . CLIENT_URL . '/view/lihat_status.php');
         }
 
 

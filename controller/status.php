@@ -7,8 +7,8 @@
  * Github       : https://github.com/moxspoy
  */
 
-include_once '../api/config/database.php';
-require_once '../api/config/constant.php';
+include_once '../model/database.php';
+require_once '../config/constant.php';
 
 $db = new Database();
 $conn = $db->getConnection();

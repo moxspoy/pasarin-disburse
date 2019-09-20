@@ -12,7 +12,7 @@ require_once '../config/constant.php';
 
 $db = new Database();
 
-$url = BASE_URL . "/disburses";
+$url = BASE_URL . "/disburse";
 
 //Check whether methos is post
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -44,6 +44,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 function createDisbursement ($method, $url, $data) {
     $key = AUTH_KEY;
+
     $curl = curl_init();
 
     curl_setopt($curl, CURLOPT_URL, $url);
@@ -52,7 +53,8 @@ function createDisbursement ($method, $url, $data) {
     curl_setopt($curl, CURLOPT_HTTPHEADER, array(
             'Content-Type: application/x-www-form-urlencoded')
     );
-    //curl_setopt($curl, CURLOPT_USERPWD, $key . ":");
+    curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+    curl_setopt($curl, CURLOPT_USERPWD, $key . ":" );
 
     $content = "bank_code=" . $data['bank_code'] . "&amount=" . $data['amount']
         . "&account_number=" . $data['account_number'] . "&remark=" . $data['remark'];

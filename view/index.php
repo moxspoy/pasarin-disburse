@@ -11,13 +11,8 @@ include 'header.php';
 require_once '../model/database.php';
 
 $db = new Database();
+$db->settingUpDatabase();
 $conn = $db->getConnection();
-
-
-if(!$db->isDatabaseCreated()) {
-    $message = $db->createDatabase();
-    echo "<script>alert('" . $message . "')</script>";
-}
 
 ?>
 
