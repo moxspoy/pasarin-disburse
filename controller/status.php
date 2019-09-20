@@ -58,7 +58,9 @@ if(isset($_POST['id'])) {
         }
 
     } else{
-        echo "No record found";
+        session_start();
+        $_SESSION['error'] = 'Data dengan id ' . $id . ' tidak ditemukan';
+        header('Location: ' . CLIENT_URL . "/view/lihat_status.php");
     }
 
 } else {

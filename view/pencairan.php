@@ -20,6 +20,7 @@ $db->settingUpDatabase();
     <!-- Default form contact -->
     <form class="text-center border border-light p-5" action="../controller/disburse.php" method="post">
 
+        <a href="<?php echo CLIENT_URL ?>"> <button class="btn btn-primary text-center">Home</button> </a>
         <p class="h4 mb-4">Lengkapi data untuk pencairan</p>
 
         <!-- Bank -->

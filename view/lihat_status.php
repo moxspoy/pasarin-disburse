@@ -15,10 +15,15 @@ $db->settingUpDatabase();
 
 session_start();
 if(isset($_SESSION['id']) && $_SESSION['id'] != null) {
-    //echo $_SESSION['id'];
     echo "<script>alert('Sukses membuat disbursement. Anda bisa mengecek status dengan id = " . $_SESSION['id'] ."')</script>";
     $_SESSION['id'] = null;
 }
+
+if(isset($_SESSION['error']) && $_SESSION['error'] != null) {
+    echo "<script>alert('" . $_SESSION['error'] ."')</script>";
+    $_SESSION['id'] = null;
+}
+
 ?>
 <body>
 
@@ -44,6 +49,10 @@ if(isset($_SESSION['id']) && $_SESSION['id'] != null) {
     <?php
     if(isset($_SESSION['success'])) {
         $data = $_SESSION['success'];
+        if($data['receipt'] == null) {
+            $data['receipt'] = "Struk belum tersedia";
+        }
+
         echo "
         <div class=\"table-responsive\">
   

@@ -19,19 +19,19 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Pasarin | Online Market Place</title>
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <link rel="stylesheet" href="<?php echo URL_FONT_AWESOME ?>">
     <!-- Bootstrap core CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?php echo URL_CSS_BOOTSTRAP?>" rel="stylesheet">
     <!-- Material Design Bootstrap -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.9/css/mdb.min.css" rel="stylesheet">
+    <link href="<?php echo URL_CSS_MDB?>" rel="stylesheet">
 
     <!-- JQuery -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="<?php echo URL_JS_JQUERY?>"></script>
     <!-- Bootstrap tooltips -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+    <script type="text/javascript" src="<?php echo URL_JS_POPPER?>"></script>
     <!-- Bootstrap core JavaScript -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="<?php echo URL_JS_BOOTSTRAP?>"></script>
     <!-- MDB core JavaScript -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.9/js/mdb.min.js"></script>
+    <script type="text/javascript" src="<?php echo URL_JS_MDB?>"></script>
 
 </head>
