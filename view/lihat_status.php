@@ -17,6 +17,7 @@ session_start();
 if(isset($_SESSION['id'])) {
     //echo $_SESSION['id'];
     echo "<script>alert('Sukses membuat disbursement. Anda bisa mengecek status dengan id = " . $_SESSION['id'] ."')</script>";
+    session_destroy();
 }
 ?>
 <body>
@@ -56,7 +57,6 @@ if(isset($_SESSION['id'])) {
     </thead>
     <tbody>
       <tr>
-        <th scope=\"row\">" . $data['id_from_api'] . "</th>
         <td>" . $data['id_from_api'] . "</td>
         <td>" . $data['account_number'] . "</td>
         <td>" . $data['amount'] . "</td>

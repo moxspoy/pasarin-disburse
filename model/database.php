@@ -55,7 +55,7 @@ class Database {
     }
 
     //Save to database from json
-    public function saveToDatabase ($json_data) {
+    public function insert ($json_data) {
         $conn = $this->getConnection();
         mysqli_select_db($conn, DB_NAME);
         $tableName = DB_TABLE_NAME;
@@ -64,7 +64,7 @@ class Database {
         if(!$conn->query($checkQuery)) {
             $createTableQuery = 'CREATE TABLE disburse (
                     id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-                    id_from_api INT(12),
+                    id_from_api VARCHAR(30),
                     amount INT(30) NOT NULL,
                     status VARCHAR(30) NOT NULL,
                     timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

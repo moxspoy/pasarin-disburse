@@ -33,7 +33,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
      * @param $result
      */
 
-    $db->saveToDatabase($result);
+    $db->insert($result);
 
 } else {
     $message['message'] = "bad request, please use post method";
