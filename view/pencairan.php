@@ -13,6 +13,12 @@ require_once '../model/database.php';
 $db = new Database();
 $db->settingUpDatabase();
 
+session_start();
+if(isset($_SESSION['error']) && $_SESSION['error'] != null) {
+    echo "<script>alert('" . $_SESSION['error'] ."')</script>";
+    $_SESSION['error'] = null;
+}
+
 ?>
 <body>
 

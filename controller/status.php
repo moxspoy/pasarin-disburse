@@ -59,7 +59,7 @@ if(isset($_POST['id'])) {
 
     } else{
         session_start();
-        $_SESSION['error'] = 'Data dengan id ' . $id . ' tidak ditemukan';
+        $_SESSION['error_not_found'] = 'Data dengan id ' . $id . ' tidak ditemukan';
         header('Location: ' . CLIENT_URL . "/view/lihat_status.php");
     }
 

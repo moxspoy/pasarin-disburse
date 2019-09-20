@@ -9,8 +9,10 @@
 
 require_once '../model/database.php';
 require_once '../config/constant.php';
+require_once '../controller/Validation.php';
 
 $db = new Database();
+$validation = new Validation();
 
 $url = BASE_URL . "/disburse";
 
@@ -21,24 +23,35 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     $data['amount'] = $_POST['amount'];
     $data['remark'] = htmlspecialchars($_POST['remark']);
 
-    /**Send Post Request to POST /disburse HTTP/1.1
-     * Content-Type: application/x-www-form-urlencoded
-     * Authorization: basic [your encoded slightly-big flip secret key]
-     */
-    $result = createDisbursement("POST",$url,$data);
+    /* Validate all post value */
+    $valid_account_number = $validation->isValidAccountNumber($data['account_number']);
+    $valid_amount = $validation->isValidAmmount($data['amount']);
+
+    if($valid_account_number && $valid_amount) {
+        /**Send Post Request to POST /disburse HTTP/1.1
+         * Content-Type: application/x-www-form-urlencoded
+         * Authorization: basic [your encoded slightly-big flip secret key]
+         */
+        $result = createDisbursement("POST",$url,$data);
 
 
-    /** Your service will then, save the detailed data about the disbursement from the 3rd party,
-     * in your local database
-     * @param $result
-     */
+        /** Your service will then, save the detailed data about the disbursement from the 3rd party,
+         * in your local database
+         * @param $result
+         */
 
-    $db->insert($result);
+        $db->insert($result);
+    } else {
+        session_start();
+        $_SESSION['error'] = 'Masukkan anda tidak valid. Nomor rekening yang dimasukkan terdiri dari 5 - 15 digit. 
+         Jumlah uang yang akan dicairkan berada di rentang Rp. 4000 - Rp. 10000000000';
+        header('Location: ' . CLIENT_URL . "/view/pencairan.php");
+    }
 
 } else {
-    $message['message'] = "bad request, please use post method";
-    $result = json_encode($message);
-    return $result;
+    session_start();
+    $_SESSION['error'] = 'bad request, please use post method';
+    header('Location: ' . CLIENT_URL . "/view/pencairan.php");
 }
 
 

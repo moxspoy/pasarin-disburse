@@ -19,9 +19,9 @@ if(isset($_SESSION['id']) && $_SESSION['id'] != null) {
     $_SESSION['id'] = null;
 }
 
-if(isset($_SESSION['error']) && $_SESSION['error'] != null) {
-    echo "<script>alert('" . $_SESSION['error'] ."')</script>";
-    $_SESSION['id'] = null;
+if(isset($_SESSION['error_not_found']) && $_SESSION['error_not_found'] != null) {
+    echo "<script>alert('" . $_SESSION['error_not_found'] ."')</script>";
+    $_SESSION['error_not_found'] = null;
 }
 
 ?>

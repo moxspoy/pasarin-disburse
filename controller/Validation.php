@@ -13,14 +13,14 @@ class Validation
 
         /** We need to validate account number. Here the assumtion:
          * - Empty number is not allowed
-         * - Number of digit should between 2-15
+         * - Number of digit should between 5-15
          **/
         $n = strlen($number);
         if(empty($number)) {
             return false;
         }
 
-        if($n < 2 || $n > 15) {
+        if($n < 5 || $n > 15) {
             return false;
         }
 
@@ -30,17 +30,17 @@ class Validation
     public function isValidAmmount($amount) {
         /** We need to validate amount. Here the assumtion:
          * - Empty amount is not allowed
-         * - Amount should between 200 - 10000000000
+         * - Amount should between Rp. 4000 - Rp. 10000000000
          **/
-        $n = strlen($amount);
         if(empty($amount)) {
             return false;
         }
 
-        if($n < 200 || $n > 10000000000) {
+        if($amount < 4000 || $amount > 10000000000) {
             return false;
         }
 
         return true;
     }
+
 }
