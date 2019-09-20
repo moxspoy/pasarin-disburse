@@ -69,7 +69,7 @@ class Database {
                     status VARCHAR(30) NOT NULL,
                     timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                     bank_code VARCHAR(10) NOT NULL ,
-                    account_number INT(15) NOT NULL,
+                    account_number VARCHAR (15) NOT NULL,
                     beneficiary_name VARCHAR(50) NOT NULL,
                     remark VARCHAR(60) NOT NULL,
                     receipt VARCHAR (255) NOT NULL,
