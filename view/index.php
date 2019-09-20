@@ -19,7 +19,6 @@ $conn = $db->getConnection();
 
 <body>
 
-<!-- Start your project here-->
 <div style="height: 100vh">
     <div class="flex-center flex-column">
         <h1 class="animated fadeIn mb-2">Selamat Datang di Pasarin.id</h1>
@@ -35,7 +34,6 @@ $conn = $db->getConnection();
     </div>
 
 </div>
-<!-- /Start your project here-->
 </body>
 
 </html>

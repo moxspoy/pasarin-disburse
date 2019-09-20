@@ -43,7 +43,7 @@ $db->settingUpDatabase();
         <input type="number" name="amount" id="amount" class="form-control mb-4"
                placeholder="Jumlah yang akan dicairkan" required>
 
-        <!-- No Rekening -->
+        <!-- Remark -->
         <input type="text" name="remark" id="remark" class="form-control mb-4"
                placeholder="Remark" required>
 

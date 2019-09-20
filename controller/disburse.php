@@ -19,7 +19,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     $data['bank_code'] = $_POST['bank_code'];
     $data['account_number'] = $_POST['account_number'];
     $data['amount'] = $_POST['amount'];
-    $data['remark'] = $_POST['remark'];
+    $data['remark'] = htmlspecialchars($_POST['remark']);
 
     /**Send Post Request to POST /disburse HTTP/1.1
      * Content-Type: application/x-www-form-urlencoded

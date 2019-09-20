@@ -56,53 +56,53 @@ if(isset($_SESSION['error']) && $_SESSION['error'] != null) {
         echo "
         <div class=\"table-responsive\">
   
-  <table class=\"table\">
-    <thead>
-      <tr>
-        <th scope=\"col\">ID</th>
-        <td>" . $data['id_from_api'] . "</td>
-      </tr>
-      <tr>
-        <th scope=\"col\">Nomor Rekening</th>
-        <td>" . $data['account_number'] . "</td>
-       </tr>
-       <tr>
-        <th scope=\"col\">Kode Bank</th>
-        <td>" . $data['bank_code'] . "</td>
-      </tr>
-      <tr>
-        <th scope=\"col\">Jumlah</th>
-        <td>" . $data['amount'] . "</td>
-       </tr>
-       <tr>
-        <th scope=\"col\">Status</th>
-        <td>" . $data['status'] . "</td>
-      </tr>
-      <tr>
-        <th scope=\"col\">Nama Beneficiary</th>
-        <td>" . $data['beneficiary_name'] . "</td>
-       </tr>
-       <tr>
-        <th scope=\"col\">Remark</th>
-        <td>" . $data['remark'] . "</td>
-      </tr>
-      <tr>
-        <th scope=\"col\">Receipt</th>
-        <td>" . $data['receipt'] . "</td>
-       </tr>
-       <tr>
-        <th scope=\"col\">Waktu Pelayanan</th>
-        <td>" . $data['time_served'] . "</td>
-      </tr>
-      <tr>
-        <th scope=\"col\">Biaya</th>
-        <td>" . $data['fee'] . "</td>
-       </tr>
-      
-    </thead>
-  
-  </table>
-</div>
+          <table class=\"table\">
+            <thead>
+              <tr>
+                <th scope=\"col\">ID</th>
+                <td>" . $data['id_from_api'] . "</td>
+              </tr>
+              <tr>
+                <th scope=\"col\">Nomor Rekening</th>
+                <td>" . $data['account_number'] . "</td>
+               </tr>
+               <tr>
+                <th scope=\"col\">Kode Bank</th>
+                <td>" . $data['bank_code'] . "</td>
+              </tr>
+              <tr>
+                <th scope=\"col\">Jumlah</th>
+                <td>" . $data['amount'] . "</td>
+               </tr>
+               <tr>
+                <th scope=\"col\">Status</th>
+                <td>" . $data['status'] . "</td>
+              </tr>
+              <tr>
+                <th scope=\"col\">Nama Beneficiary</th>
+                <td>" . $data['beneficiary_name'] . "</td>
+               </tr>
+               <tr>
+                <th scope=\"col\">Remark</th>
+                <td>" . $data['remark'] . "</td>
+              </tr>
+              <tr>
+                <th scope=\"col\">Receipt</th>
+                <td>" . $data['receipt'] . "</td>
+               </tr>
+               <tr>
+                <th scope=\"col\">Waktu Pelayanan</th>
+                <td>" . $data['time_served'] . "</td>
+              </tr>
+              <tr>
+                <th scope=\"col\">Biaya</th>
+                <td>" . $data['fee'] . "</td>
+               </tr>
+              
+            </thead>
+          
+          </table>
+        </div>
         ";
         session_destroy();
     } else {
