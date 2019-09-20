@@ -7,14 +7,15 @@
  * Github       : https://github.com/moxspoy
  */
 
-include_once 'api/config/database.php';
+include_once 'config/database.php';
+include_once 'config/constant.php';
 
 echo "Creating database ...";
 
 $db = new Database();
 $conn = $db->getConnection();
 
-$createDatabaseQuery = 'CREATE DATABASE pasarin_disburse';
+$createDatabaseQuery = 'CREATE DATABASE ' . DB_NAME;
 if($conn->query($createDatabaseQuery)) {
     echo "Database created successfully. You now can open index.php on root folder";
 } else {
