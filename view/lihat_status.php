@@ -8,7 +8,12 @@
  */
 
 include 'header.php';
+
 session_start();
+if(isset($_SESSION['id'])) {
+    echo "<script>alert('Sukses membuat disbursement. Anda bisa mengecek status dengan id = " . $_SESSION['id'] ."')</script>";
+}
+session_destroy();
 ?>
 <body>
 

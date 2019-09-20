@@ -8,7 +8,7 @@
  */
 
 include 'header.php';
-require_once '../config/database.php';
+require_once '../model/database.php';
 
 $db = new Database();
 $conn = $db->getConnection();
@@ -18,12 +18,6 @@ if(!$db->isDatabaseCreated()) {
     $message = $db->createDatabase();
     echo "<script>alert('" . $message . "')</script>";
 }
-
-session_start();
-if(isset($_SESSION['id'])) {
-    echo "<script>alert('Sukses membuat disbursement. Anda bisa mengecek status dengan id = " . $_SESSION['id'] ."')</script>";
-}
-session_destroy();
 
 ?>
 

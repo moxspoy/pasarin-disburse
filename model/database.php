@@ -50,8 +50,9 @@ class Database {
     public function saveToDatabase ($json_data) {
         $conn = $this->getConnection();
         mysqli_select_db($conn, DB_NAME);
+        $tableName = DB_TABLE_NAME;
 
-        $checkQuery = "SELECT 1 FROM '$'  LIMIT 1";
+        $checkQuery = "SELECT 1 FROM '$tableName' LIMIT 1";
         if(!$conn->query($checkQuery)) {
             $createTableQuery = 'CREATE TABLE disburse (
                     id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -84,6 +85,7 @@ class Database {
         $fee = $data->fee;
 
 
+        //Insert to local database
         $insertQuery = "INSERT INTO disburse (id_from_api, amount, status, timestamp, bank_code, account_number, 
                         beneficiary_name, remark, receipt, time_served, fee) 
                         VALUES ('$id_from_api','$amount', '$status', '$timestamp', '$bank_code', '$account_number',
@@ -94,7 +96,7 @@ class Database {
         } else {
             session_start();
             $_SESSION['id'] = $data->id;
-            header('Location: ' . CLIENT_URL);
+            header('Location: ' . CLIENT_URL . '/view/lihat_status');
         }
 
 

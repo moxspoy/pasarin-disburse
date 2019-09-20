@@ -7,9 +7,10 @@
  * Github       : https://github.com/moxspoy
  */
 
-require_once '../config/database.php';
+require_once '../model/database.php';
 require_once '../config/constant.php';
 
+$db = new Database();
 
 $url = BASE_URL . "/disburses";
 
@@ -29,13 +30,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     /** Your service will then, save the detailed data about the disbursement from the 3rd party,
      * in your local database
-     * @param $method
-     * @param $url
-     * @param bool $data
-     * @return bool|string
+     * @param $result
      */
 
-    saveToDatabase($result);
+    $db->saveToDatabase($result);
+
 } else {
     $message['message'] = "bad request, please use post method";
     $result = json_encode($message);
@@ -44,15 +43,16 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 function createDisbursement ($method, $url, $data) {
+    $key = AUTH_KEY;
     $curl = curl_init();
 
     curl_setopt($curl, CURLOPT_URL, $url);
     curl_setopt($curl, CURLOPT_POST, 1);
     curl_setopt($curl, CURL_HTTP_VERSION_1_1, 1);
     curl_setopt($curl, CURLOPT_HTTPHEADER, array(
-            'Content-Type: application/x-www-form-urlencoded',
-            'Authorization: basic '. AUTH_KEY)
+            'Content-Type: application/x-www-form-urlencoded')
     );
+    //curl_setopt($curl, CURLOPT_USERPWD, $key . ":");
 
     $content = "bank_code=" . $data['bank_code'] . "&amount=" . $data['amount']
         . "&account_number=" . $data['account_number'] . "&remark=" . $data['remark'];
