@@ -14,7 +14,6 @@ $db = new Database();
 $conn = $db->getConnection();
 
 
-
 if(isset($_POST['id'])) {
 
     $id = $_POST['id'];

@@ -7,19 +7,20 @@
  * Github       : https://github.com/moxspoy
  */
 
+/** URL Configuration **/
 //define('BASE_URL', 'http://localhost/nextar.flip.id/index.php/disbursement');
 define('BASE_URL', 'https://nextar.flip.id');
 define('CLIENT_URL', 'http://localhost/pasarin-disburse');
 define('AUTH_KEY', 'HyzioY7LP6ZoO7nTYKbG8O4ISkyWnX1JvAEVAhtWKZumooCzqp41');
 define('LOCAL_HOST', 'localhost');
 
-/**  Database Constant */
+/**  Database Constant **/
 define('DB_NAME', 'pasarin_disburse');
 define('DB_USER', 'root');
 define('DB_PASSWORD', '');
 define('DB_TABLE_NAME', 'disburse');
 
-/** Empty URL, you can comment those value to enable beautiful view */
+/** Empty URL, you can comment those value to enable beautiful view **/
 define('URL_FONT_AWESOME','');
 define('URL_CSS_BOOTSTRAP','');
 define('URL_CSS_MDB','');
@@ -28,7 +29,8 @@ define('URL_JS_POPPER','');
 define('URL_JS_BOOTSTRAP','');
 define('URL_JS_MDB','');
 
-/** Uncomment this value if you need beautiful css (this is external libaries of CSS and JS, so i dont use that)
+/** Uncomment this value if you need beautiful css and js
+ * This is external libaries of CSS and JS, so i dont use that
  * according to the assignment requirement
  * Those variable used in view/header.php
 **/

@@ -48,6 +48,7 @@ if(isset($_SESSION['error_not_found']) && $_SESSION['error_not_found'] != null) 
 
     <?php
     if(isset($_SESSION['success'])) {
+        echo "<script>alert('Berhasil mengupdate data dari server ke database lokal')</script>";
         $data = $_SESSION['success'];
         if($data['receipt'] == null) {
             $data['receipt'] = "Struk belum tersedia";

@@ -31,7 +31,7 @@ class Database {
         }
     }
 
-    //Check if database was created, this function is solution if user not run 'migrate.php'
+    //Check if database was created, this function is solution if user did not run 'migrate.php'
     public function isDatabaseCreated() {
         $this->conn = $this->getConnection();
         $select = mysqli_select_db($this->conn, DB_NAME);
@@ -107,6 +107,9 @@ class Database {
             header('Location: ' . CLIENT_URL . '/view/lihat_status.php');
         }
 
+    }
+
+    public function update($data) {
 
     }
 }
