@@ -8,6 +8,7 @@
  */
 
 require_once '../config/constant.php';
+require_once 'Disburse.php';
 
 class Database {
     private $conn = null;
@@ -54,6 +55,50 @@ class Database {
         }
     }
 
+
+    function getDataById($id, $isFromQuery) {
+        $request_url = BASE_URL . "/disburse/" . $id;
+        $request = $this->getDataFromCurl($request_url);
+        $data = json_decode($request, true);
+
+        //Update table: The information that must be updated when you check the disbursement status are the
+        //following: status,receipt and time_served
+        if ($data != null) {
+            if ($isFromQuery) {
+                $this->update($data, $id );
+            } else {
+                session_start();
+                $data['id_from_api'] = $data['id'];
+                $_SESSION['success'] = $data;
+                header('Location: ' . CLIENT_URL . "/view/lihat_status.php");
+            }
+        }  else {
+            $message = "Gagal mendapatkan data dari server. Silahkan coba lagi";
+            session_start();
+            $_SESSION['error_server'] = $message;
+            header('Location: ' . CLIENT_URL . "/view/lihat_status.php");
+        }
+    }
+
+    function getDataFromCurl ($url) {
+        $key = AUTH_KEY;
+
+        $curl = curl_init();
+
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURL_HTTP_VERSION_1_1, 1);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array(
+                'Content-Type: application/x-www-form-urlencoded')
+        );
+        curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($curl, CURLOPT_USERPWD, $key . ":" );
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+
+        $result = curl_exec($curl);
+        curl_close($curl);
+        return $result;
+    }
+
     //Save to database from json
     public function insert ($json_data) {
         $conn = $this->getConnection();
@@ -80,31 +125,27 @@ class Database {
         }
 
         $data = json_decode($json_data);
-        $id_from_api = $data->id;
-        $amount = $data->amount;
-        $status = $data->status;
-        $timestamp = $data->timestamp;
-        $bank_code = $data->bank_code;
-        $account_number = $data->account_number;
-        $beneficiary_name = $data->beneficiary_name;
-        $remark = $data->remark;
-        $receipt = $data->receipt;
-        $time_served = $data->time_served;
-        $fee = $data->fee;
 
+        $object = new Disburse(
+            $data->id, $data->amount, $data->status, $data->timestamp,
+            $data->bank_code, $data->account_number, $data->beneficiary_name,
+            $data->remark, $data->receipt, $data->time_served, $data->fee
+        );
 
         //Insert to local database
         $insertQuery = "INSERT INTO disburse (id_from_api, amount, status, timestamp, bank_code, account_number, 
                         beneficiary_name, remark, receipt, time_served, fee) 
-                        VALUES ('$id_from_api','$amount', '$status', '$timestamp', '$bank_code', '$account_number',
-                                '$beneficiary_name', '$remark', '$receipt', '$time_served', '$fee')";
+                        VALUES ('". $object->getIdFromApi() ."','". $object->getAmount() ."', '". $object->getStatus() ."', 
+                        '". $object->getTimestamp() ."', '". $object->getBankCode() ."', '". $object->getAccountNumber() ."',
+                        '". $object->getBeneficiaryName() ."', '". $object->getRemark() ."', '". $object->getReceipt() ."', 
+                        '". $object->getTimeServed() ."','". $object->getFee() ."')";
 
         if(!$conn->query($insertQuery)) {
             echo "Error when inserting data to table because: " . mysqli_error($conn);
         } else {
             session_start();
-            $_SESSION['id'] = $data->id;
-            header('Location: ' . CLIENT_URL . '/view/lihat_status.php');
+            $_SESSION['id'] = $object->getIdFromApi();
+            $this->getDataById($object->getIdFromApi(), false);
         }
 
     }
@@ -113,15 +154,15 @@ class Database {
     {
         $conn = $this->getConnection();
 
-        $id_from_api = $data->id;
-        $status = $data->status;
-        $receipt = $data->receipt;
-        $time_served = $data->time_served;
+        $id_from_api = $data['id'];
+        $status = $data['status'];
+        $receipt = $data['receipt'];
+        $time_served = $data['time_served'];
 
         mysqli_select_db($conn, DB_NAME);
 
         //create db
-        $query = "SELECT * FROM disburse WHERE id_from_api=" . $id_from_api;
+        $query = "SELECT * FROM disburse WHERE id_from_api=" . $query_id;
         $checkQuery = $conn->query($query);
 
         if ($checkQuery->num_rows > 0) {
@@ -147,23 +188,5 @@ class Database {
         }
     }
 
-    function getDataById ($url) {
-        $key = AUTH_KEY;
-
-        $curl = curl_init();
-
-        curl_setopt($curl, CURLOPT_URL, $url);
-        curl_setopt($curl, CURL_HTTP_VERSION_1_1, 1);
-        curl_setopt($curl, CURLOPT_HTTPHEADER, array(
-                'Content-Type: application/x-www-form-urlencoded')
-        );
-        curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-        curl_setopt($curl, CURLOPT_USERPWD, $key . ":" );
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-
-        $result = curl_exec($curl);
-        curl_close($curl);
-        return $result;
-    }
 }
 ?>

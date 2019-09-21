@@ -32,7 +32,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
          * Content-Type: application/x-www-form-urlencoded
          * Authorization: basic [your encoded slightly-big flip secret key]
          */
-        $result = createDisbursement("POST",$url,$data);
+        $result = createDisbursement($url,$data);
 
 
         /** Your service will then, save the detailed data about the disbursement from the 3rd party,
@@ -55,7 +55,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 
 
-function createDisbursement ($method, $url, $data) {
+function createDisbursement ($url, $data) {
     $key = AUTH_KEY;
 
     $curl = curl_init();

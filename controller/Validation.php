@@ -5,6 +5,7 @@
  * Time         : 5:49
  * Github       : https://github.com/moxspoy
  */
+require_once 'Valid.php';
 
 class Validation implements Valid
 {

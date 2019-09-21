@@ -51,15 +51,17 @@ if(isset($_SESSION['error_server']) && $_SESSION['error_server'] != null) {
                placeholder="Masukan kode transaksi yang akan dicari: " required autofocus>
 
         <!-- Send button -->
-        <button class="btn btn-info btn-block" type="submit">Lihat Status</button>
+        <button class="btn btn-info btn-block" type="submit">Lihat/Perbarui Status</button>
 
     </form>
     <!-- Default form contact -->
 
     <?php
     if(isset($_SESSION['success'])) {
+
         echo "<script>alert('Berhasil mengupdate data dari server ke database lokal')</script>";
         $data = $_SESSION['success'];
+
         if($data['receipt'] == null) {
             $data['receipt'] = "Struk belum tersedia";
         }
