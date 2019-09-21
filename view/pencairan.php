@@ -15,7 +15,8 @@ $db->settingUpDatabase();
 
 session_start();
 if(isset($_SESSION['error']) && $_SESSION['error'] != null) {
-    echo "<script>alert('" . $_SESSION['error'] ."')</script>";
+    echo "<script>alert('Masukkan anda tidak valid. Nomor rekening yang dimasukkan terdiri dari 5 - 15 digit. ' +
+            'Jumlah uang yang akan dicairkan berada di rentang Rp. 4000 - Rp. 10000000000')</script>";
     $_SESSION['error'] = null;
 }
 
