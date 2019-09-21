@@ -6,7 +6,7 @@
  * Github       : https://github.com/moxspoy
  */
 
-class Validation
+class Validation implements Valid
 {
     public function isValidAccountNumber($number)
     {
