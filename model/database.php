@@ -146,5 +146,24 @@ class Database {
             header('Location: ' . CLIENT_URL . "/view/lihat_status.php");
         }
     }
+
+    function getDataById ($url) {
+        $key = AUTH_KEY;
+
+        $curl = curl_init();
+
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURL_HTTP_VERSION_1_1, 1);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array(
+                'Content-Type: application/x-www-form-urlencoded')
+        );
+        curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($curl, CURLOPT_USERPWD, $key . ":" );
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+
+        $result = curl_exec($curl);
+        curl_close($curl);
+        return $result;
+    }
 }
 ?>

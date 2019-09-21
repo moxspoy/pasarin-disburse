@@ -18,7 +18,7 @@ if(isset($_POST['id'])) {
 
     $id = $_POST['id'];
     $request_url = BASE_URL . "/disburse/" . $id;
-    $request = getDataById($request_url);
+    $request = $db->getDataById($request_url);
     $data = json_decode($request);
 
     //Update table: The information that must be updated when you check the disbursement status are the
@@ -40,22 +40,4 @@ if(isset($_POST['id'])) {
 }
 
 
-function getDataById ($url) {
-    $key = AUTH_KEY;
-
-    $curl = curl_init();
-
-    curl_setopt($curl, CURLOPT_URL, $url);
-    curl_setopt($curl, CURL_HTTP_VERSION_1_1, 1);
-    curl_setopt($curl, CURLOPT_HTTPHEADER, array(
-            'Content-Type: application/x-www-form-urlencoded')
-    );
-    curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-    curl_setopt($curl, CURLOPT_USERPWD, $key . ":" );
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-
-    $result = curl_exec($curl);
-    curl_close($curl);
-    return $result;
-}
 ?>
