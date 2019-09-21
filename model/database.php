@@ -73,7 +73,7 @@ class Database {
                 header('Location: ' . CLIENT_URL . "/view/lihat_status.php");
             }
         }  else {
-            $message = "Gagal mendapatkan data dari server. Silahkan coba lagi";
+            $message = "Gagal mendapatkan data dari server. Silahkan coba lagi untuk mengisi form pencairan";
             session_start();
             $_SESSION['error_server'] = $message;
             header('Location: ' . CLIENT_URL . "/view/lihat_status.php");
