@@ -21,51 +21,22 @@ if(isset($_POST['id'])) {
     $request = getDataById($request_url);
     $data = json_decode($request);
 
-    $id_from_api = $data->id;
-    $amount = $data->amount;
-    $status = $data->status;
-    $timestamp = $data->timestamp;
-    $bank_code = $data->bank_code;
-    $account_number = $data->account_number;
-    $beneficiary_name = $data->beneficiary_name;
-    $remark = $data->remark;
-    $receipt = $data->receipt;
-    $time_served = $data->time_served;
-    $fee = $data->fee;
-
     //Update table: The information that must be updated when you check the disbursement status are the
-    // following: status,receipt and time_served
-    mysqli_select_db($conn, DB_NAME);
-
-    //create db
-    $query = "SELECT * FROM disburse WHERE id_from_api=" . $id_from_api;
-    $checkQuery = $conn->query($query);
-
-    if($checkQuery->num_rows > 0) {
-        //update db
-        $updateQuery = "UPDATE disburse SET status='$status', receipt='$receipt',time_served='$time_served' WHERE id_from_api=" . $id;
-
-        if(!$conn->query($updateQuery)) {
-            echo "Error when updating data to table because: " . mysqli_error($conn);
-        } else {
-
-            //display page
-            $singleData = $checkQuery->fetch_assoc();
-            session_start();
-            $_SESSION['success'] = $singleData;
-            header('Location: ' . CLIENT_URL . "/view/lihat_status.php");
-        }
-
-    } else{
+    //following: status,receipt and time_served
+    if ($data != null) {
+        $db->update($data, $id  );
+    }  else {
+        $message = "Gagal mendapatkan data dari server. Silahkan coba lagi";
         session_start();
-        $_SESSION['error_not_found'] = 'Data dengan id ' . $id . ' tidak ditemukan';
+        $_SESSION['error_server'] = $message;
         header('Location: ' . CLIENT_URL . "/view/lihat_status.php");
     }
 
 } else {
-    $message['message'] = "bad request, please use post method";
-    $result = json_encode($message);
-    return $result;
+    $message = "Mohon gunakan method post, jangan mengakses langsung dari URL";
+    session_start();
+    $_SESSION['error_not_post'] = $message;
+    header('Location: ' . CLIENT_URL . "/view/lihat_status.php");
 }
 
 

@@ -24,6 +24,16 @@ if(isset($_SESSION['error_not_found']) && $_SESSION['error_not_found'] != null) 
     $_SESSION['error_not_found'] = null;
 }
 
+if(isset($_SESSION['error_not_post']) && $_SESSION['error_not_post'] != null) {
+    echo "<script>alert('" . $_SESSION['error_not_post'] ."')</script>";
+    $_SESSION['error_not_post'] = null;
+}
+
+if(isset($_SESSION['error_server']) && $_SESSION['error_server'] != null) {
+    echo "<script>alert('" . $_SESSION['error_server'] ."')</script>";
+    $_SESSION['error_server'] = null;
+}
+
 ?>
 <body>
 

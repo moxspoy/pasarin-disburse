@@ -109,8 +109,42 @@ class Database {
 
     }
 
-    public function update($data) {
+    public function update($data, $query_id)
+    {
+        $conn = $this->getConnection();
 
+        $id_from_api = $data->id;
+        $status = $data->status;
+        $receipt = $data->receipt;
+        $time_served = $data->time_served;
+
+        mysqli_select_db($conn, DB_NAME);
+
+        //create db
+        $query = "SELECT * FROM disburse WHERE id_from_api=" . $id_from_api;
+        $checkQuery = $conn->query($query);
+
+        if ($checkQuery->num_rows > 0) {
+            //update db
+            $updateQuery = "UPDATE disburse SET status='$status', receipt='$receipt',time_served='$time_served' WHERE id_from_api="
+                . $id_from_api;
+
+            if (!$conn->query($updateQuery)) {
+                echo "Error when updating data to table because: " . mysqli_error($conn);
+            } else {
+
+                //display page
+                $singleData = $checkQuery->fetch_assoc();
+                session_start();
+                $_SESSION['success'] = $singleData;
+                header('Location: ' . CLIENT_URL . "/view/lihat_status.php");
+            }
+
+        } else {
+            session_start();
+            $_SESSION['error_not_found'] = 'Data dengan id ' . $query_id . ' tidak ditemukan';
+            header('Location: ' . CLIENT_URL . "/view/lihat_status.php");
+        }
     }
 }
 ?>
